@@ -42,7 +42,7 @@ class MyTextBox extends React.Component {
     console.log('make super special http call with', value, 'and DATE');
   }
 
-  render() { return <GenericTextBox onChange={this.onInputChange} overrideOnChange="true" /> }
+  render() { return <GenericTextBox onChange={this.onInputChange} overrideOnChange={true} /> }
 
 }
 
