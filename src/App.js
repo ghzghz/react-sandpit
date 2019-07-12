@@ -1,24 +1,68 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+class GenericTextBox extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.onInputChange = this.onInputChange.bind(this);
+  }
+
+  onInputChange(e){
+
+    const value = e.target.value;
+    
+    /* call the parent's onChange */
+    this.props.onChange(value);
+
+    /* handle onChange locally */
+    console.log('make http call with', value);
+
+  }
+
+  render() { return <div>hello<input type="text" onChange={this.onInputChange}/></div> }
+}
+
+class MyTextBox extends React.Component {
+  constructor(props){
+    super(props);
+    this.onInputChange = this.onInputChange.bind(this);
+  }
+
+  onInputChange(value){
+    /* call parent */
+    this.props.onChange(value);
+    console.log('make super special http call with', value, 'and DATE');
+  }
+
+  render() { return <GenericTextBox
+    onChange={this.onInputChange}
+      /> }
+}
+
+class MyForm extends React.Component {
+
+  handleChange(value){
+    console.log('set state on form', value)
+  }
+
+  render() { return <form> <MyTextBox onChange={this.handleChange} /> </form> }
+}
+
+class ExistingForm extends React.Component {
+  handleChange(value){
+    console.log('set state on form', value)
+  }
+
+  render() { return <form> <GenericTextBox onChange={this.handleChange} /> </form> }
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <MyForm/>
+      <ExistingForm/>
+
     </div>
   );
 }
