@@ -13,26 +13,23 @@ class GenericTextBox extends React.Component {
     /* call the parent's onChange */
     this.props.onChange(value);
 
-    if (this.props.overrideOnChange) {
-    }
-    else {
-      /* handle onChange locally */
-      console.log('make http call with', value);
-    }
+    /* handle onChange locally */
+    console.log('make http call with', value);
   }
 
   render() { return <div>hello<input type="text" onChange={this.onInputChange}/></div> }
 
 }
 
-class MyTextBox extends React.Component {
+class MyTextBox extends GenericTextBox {
 
   constructor(props){
     super(props);
     this.onInputChange = this.onInputChange.bind(this);
   }
 
-  onInputChange(value){
+  onInputChange(e){
+    const value = e.target.value;
 
     /* call parent */
     this.props.onChange(value);
@@ -42,7 +39,9 @@ class MyTextBox extends React.Component {
     console.log('make super special http call with', value, 'and DATE');
   }
 
+  /*
   render() { return <GenericTextBox onChange={this.onInputChange} overrideOnChange={true} /> }
+  */
 
 }
 
