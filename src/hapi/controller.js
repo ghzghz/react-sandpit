@@ -7,4 +7,8 @@ let controller = () => {
     return getData()
 }
 
-module.exports = { controller }
+let controller2 = () => {
+    return data.getData()
+}
+
+module.exports = { controller, controller2 }
